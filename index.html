@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sekelompok Bebek Menyapa</title>
+<style>
+    /* Mengatur latar belakang menjadi langit biru */
+    body {
+        background-color: #87CEEB; 
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        height: 100vh;
+        margin: 0;
+        overflow: hidden;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    /* Membuat area kolam air di bagian bawah */
+    .pond {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: 35%;
+        background-color: #4682B4; 
+        border-top: 5px solid #5F9EA0;
+    }
+
+    /* Wadah untuk menyejajarkan para bebek */
+    .duck-container {
+        position: relative;
+        display: flex;
+        gap: 30px;
+        z-index: 10;
+        padding-bottom: 80px;
+    }
+
+    /* Wadah individu untuk masing-masing bebek beserta teksnya */
+    .duck-wrapper {
+        position: relative;
+        text-align: center;
+        /* Menambahkan animasi mengambang (bobbing) */
+        animation: bob 1.5s infinite ease-in-out alternate;
+    }
+
+    /* Memberikan jeda waktu (delay) berbeda agar bebek tidak bergerak persis bersamaan */
+    .duck-wrapper:nth-child(1) { animation-delay: 0s; }
+    .duck-wrapper:nth-child(2) { animation-delay: 0.3s; }
+    .duck-wrapper:nth-child(3) { animation-delay: 0.6s; }
+    .duck-wrapper:nth-child(4) { animation-delay: 0.9s; }
+    .duck-wrapper:nth-child(5) { animation-delay: 1.2s; }
+
+    /* Gaya untuk karakter bebek */
+    .duck {
+        font-size: 70px;
+        /* Membalikkan emoji agar menghadap ke kanan */
+        transform: scaleX(-1); 
+        display: inline-block;
+        filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.3));
+    }
+
+    /* Gaya untuk gelembung percakapan (Hello!) */
+    .hello {
+        position: absolute;
+        top: -45px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: white;
+        padding: 8px 15px;
+        border-radius: 15px;
+        font-size: 16px;
+        font-weight: bold;
+        color: #333;
+        opacity: 0; /* Awalnya disembunyikan */
+        box-shadow: 0px 4px 6px rgba(0,0,0,0.1);
+        /* Animasi muncul-hilang untuk sapaan */
+        animation: sayHello 5s infinite;
+    }
+
+    /* Membuat ekor segitiga kecil di bawah gelembung percakapan */
+    .hello::after {
+        content: '';
+        position: absolute;
+        bottom: -8px;
+        left: 50%;
+        transform: translateX(-50%);
+        border-width: 8px 8px 0;
+        border-style: solid;
+        border-color: white transparent transparent transparent;
+    }
+
+    /* Memberikan jeda waktu agar bebek menyapa secara bergantian */
+    .duck-wrapper:nth-child(1) .hello { animation-delay: 0.5s; }
+    .duck-wrapper:nth-child(2) .hello { animation-delay: 2.5s; }
+    .duck-wrapper:nth-child(3) .hello { animation-delay: 1.0s; }
+    .duck-wrapper:nth-child(4) .hello { animation-delay: 4.0s; }
+    .duck-wrapper:nth-child(5) .hello { animation-delay: 1.5s; }
+
+    /* Keyframes untuk animasi mengambang di air */
+    @keyframes bob {
+        0% { transform: translateY(0); }
+        100% { transform: translateY(-25px); }
+    }
+
+    /* Keyframes untuk animasi memunculkan sapaan */
+    @keyframes sayHello {
+        0%, 25%, 100% { opacity: 0; transform: translate(-50%, 15px); }
+        10%, 20% { opacity: 1; transform: translate(-50%, 0); }
+    }
+</style>
+</head>
+<body>
+
+<div class="pond"></div>
+
+<div class="duck-container">
+    <div class="duck-wrapper">
+        <div class="hello">Halo!</div>
+        <div class="duck">🦆</div>
+    </div>
+    <div class="duck-wrapper">
+        <div class="hello">hello kwek!</div>
+        <div class="duck">🦆</div>
+    </div>
+    <div class="duck-wrapper">
+        <div class="hello">Hello nana!</div>
+        <div class="duck">🦆</div>
+    </div>
+    <div class="duck-wrapper">
+        <div class="hello">nana gemesh!</div>
+        <div class="duck">🦆</div>
+    </div>
+    <div class="duck-wrapper">
+        <div class="hello">Kwek kwek!</div>
+        <div class="duck">🦆</div>
+    </div>
+</div>
+
+</body>
+</html>
