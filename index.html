@@ -1,228 +1,141 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Selamat Ulang Tahun Nana!</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;700&display=swap');
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sekelompok Bebek Menyapa</title>
+<style>
+    /* Mengatur latar belakang menjadi langit biru */
+    body {
+        background-color: #87CEEB; 
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        height: 100vh;
+        margin: 0;
+        overflow: hidden;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
 
-        body {
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            background: linear-gradient(135deg, #fce4ec 0%, #f3e5f5 100%);
-            font-family: 'Quicksand', sans-serif;
-            overflow-x: hidden;
-        }
+    /* Membuat area kolam air di bagian bawah */
+    .pond {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: 35%;
+        background-color: #4682B4; 
+        border-top: 5px solid #5F9EA0;
+    }
 
-        .container {
-            text-align: center;
-            z-index: 1;
-        }
+    /* Wadah untuk menyejajarkan para bebek */
+    .duck-container {
+        position: relative;
+        display: flex;
+        gap: 30px;
+        z-index: 10;
+        padding-bottom: 80px;
+    }
 
-        h1 {
-            font-family: 'Pacifico', cursive;
-            color: #d81b60;
-            font-size: 3.5rem;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-            animation: bounce 2s infinite;
-        }
+    /* Wadah individu untuk masing-masing bebek beserta teksnya */
+    .duck-wrapper {
+        position: relative;
+        text-align: center;
+        /* Menambahkan animasi mengambang (bobbing) */
+        animation: bob 1.5s infinite ease-in-out alternate;
+    }
 
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
+    /* Memberikan jeda waktu (delay) berbeda agar bebek tidak bergerak persis bersamaan */
+    .duck-wrapper:nth-child(1) { animation-delay: 0s; }
+    .duck-wrapper:nth-child(2) { animation-delay: 0.3s; }
+    .duck-wrapper:nth-child(3) { animation-delay: 0.6s; }
+    .duck-wrapper:nth-child(4) { animation-delay: 0.9s; }
+    .duck-wrapper:nth-child(5) { animation-delay: 1.2s; }
 
-        /* Cake Styling */
-        .cake-container {
-            position: relative;
-            margin-top: 50px;
-            cursor: pointer;
-        }
+    /* Gaya untuk karakter bebek */
+    .duck {
+        font-size: 70px;
+        /* Membalikkan emoji agar menghadap ke kanan */
+        transform: scaleX(-1); 
+        display: inline-block;
+        filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.3));
+    }
 
-        .cake {
-            position: relative;
-            width: 250px;
-            height: 150px;
-            background: #f48fb1;
-            border-radius: 10px 10px 0 0;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        }
+    /* Gaya untuk gelembung percakapan (Hello!) */
+    .hello {
+        position: absolute;
+        top: -45px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: white;
+        padding: 8px 15px;
+        border-radius: 15px;
+        font-size: 16px;
+        font-weight: bold;
+        color: #333;
+        opacity: 0; /* Awalnya disembunyikan */
+        box-shadow: 0px 4px 6px rgba(0,0,0,0.1);
+        /* Animasi muncul-hilang untuk sapaan */
+        animation: sayHello 5s infinite;
+    }
 
-        .cake::before {
-            content: "";
-            position: absolute;
-            top: 30px;
-            left: 0;
-            width: 100%;
-            height: 40px;
-            background: #f06292;
-        }
+    /* Membuat ekor segitiga kecil di bawah gelembung percakapan */
+    .hello::after {
+        content: '';
+        position: absolute;
+        bottom: -8px;
+        left: 50%;
+        transform: translateX(-50%);
+        border-width: 8px 8px 0;
+        border-style: solid;
+        border-color: white transparent transparent transparent;
+    }
 
-        .cake::after {
-            content: "";
-            position: absolute;
-            top: 80px;
-            left: 0;
-            width: 100%;
-            height: 40px;
-            background: #ec407a;
-        }
+    /* Memberikan jeda waktu agar bebek menyapa secara bergantian */
+    .duck-wrapper:nth-child(1) .hello { animation-delay: 0.5s; }
+    .duck-wrapper:nth-child(2) .hello { animation-delay: 2.5s; }
+    .duck-wrapper:nth-child(3) .hello { animation-delay: 1.0s; }
+    .duck-wrapper:nth-child(4) .hello { animation-delay: 4.0s; }
+    .duck-wrapper:nth-child(5) .hello { animation-delay: 1.5s; }
 
-        .plate {
-            width: 300px;
-            height: 15px;
-            background: #ccc;
-            border-radius: 10px;
-            margin-top: -5px;
-        }
+    /* Keyframes untuk animasi mengambang di air */
+    @keyframes bob {
+        0% { transform: translateY(0); }
+        100% { transform: translateY(-25px); }
+    }
 
-        .candles {
-            position: absolute;
-            top: -40px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 20px;
-        }
-
-        .candle {
-            width: 15px;
-            height: 50px;
-            background: linear-gradient(to bottom, #fff 0%, #eee 100%);
-            border-radius: 5px;
-            position: relative;
-        }
-
-        .flame {
-            position: absolute;
-            top: -20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 15px;
-            height: 25px;
-            background: #ffeb3b;
-            border-radius: 50% 50% 20% 20%;
-            box-shadow: 0 0 20px #ffeb3b;
-            animation: flicker 0.5s infinite alternate;
-            transition: opacity 0.5s;
-        }
-
-        @keyframes flicker {
-            0% { transform: translateX(-50%) scale(1); }
-            100% { transform: translateX(-50%) scale(1.1); }
-        }
-
-        .flame.out {
-            opacity: 0;
-        }
-
-        /* Confetti */
-        .confetti {
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            background: #f00;
-            top: -10px;
-            z-index: 0;
-            animation: fall linear forwards;
-        }
-
-        @keyframes fall {
-            to {
-                transform: translateY(100vh) rotate(360deg);
-            }
-        }
-
-        /* Message */
-        #message {
-            margin-top: 30px;
-            font-size: 1.5rem;
-            color: #ad1457;
-            font-weight: bold;
-            opacity: 0;
-            transition: opacity 1s;
-        }
-
-        #message.show {
-            opacity: 1;
-        }
-
-        .duck-nana {
-            font-size: 50px;
-            margin-top: 20px;
-            display: inline-block;
-        }
-
-        .party-hat {
-            position: relative;
-            display: inline-block;
-        }
-
-        .party-hat::before {
-            content: "▲";
-            position: absolute;
-            top: -25px;
-            left: 10px;
-            color: #ff4081;
-            font-size: 30px;
-            transform: rotate(-10deg);
-        }
-    </style>
+    /* Keyframes untuk animasi memunculkan sapaan */
+    @keyframes sayHello {
+        0%, 25%, 100% { opacity: 0; transform: translate(-50%, 15px); }
+        10%, 20% { opacity: 1; transform: translate(-50%, 0); }
+    }
+</style>
 </head>
 <body>
 
-<div class="container">
-    <h1>Selamat Ulang Tahun, Nana! 🎂</h1>
+<div class="pond"></div>
 
-    <div class="cake-container" onclick="blowOut()">
-        <div class="candles">
-            <div class="candle"><div class="flame"></div></div>
-            <div class="candle"><div class="flame"></div></div>
-            <div class="candle"><div class="flame"></div></div>
-        </div>
-        <div class="cake"></div>
-        <div class="plate"></div>
+<div class="duck-container">
+    <div class="duck-wrapper">
+        <div class="hello">Halo!</div>
+        <div class="duck">🦆</div>
     </div>
-
-    <div id="message">Semoga hari ini penuh dengan kebahagiaan dan keceriaan! Kwek! 🦆✨</div>
-
-    <div class="party-hat">
-        <div class="duck-nana">🦆</div>
+    <div class="duck-wrapper">
+        <div class="hello">hello kwek!</div>
+        <div class="duck">🦆</div>
+    </div>
+    <div class="duck-wrapper">
+        <div class="hello">Hello nana!</div>
+        <div class="duck">🦆</div>
+    </div>
+    <div class="duck-wrapper">
+        <div class="hello">nana gemesh!</div>
+        <div class="duck">🦆</div>
+    </div>
+    <div class="duck-wrapper">
+        <div class="hello">Kwek kwek!</div>
+        <div class="duck">🦆</div>
     </div>
 </div>
-
-<script>
-    function blowOut() {
-        const flames = document.querySelectorAll('.flame');
-        flames.forEach(flame => flame.classList.add('out'));
-        document.getElementById('message').classList.add('show');
-        createConfetti();
-    }
-
-    function createConfetti() {
-        const colors = ['#f44336', '#e91e63', '#9c27b0', '#673ab7', '#3f51b5', '#2196f3', '#03a9f4', '#00bcd4', '#009688', '#4caf50', '#8bc34a', '#cddc39', '#ffeb3b', '#ffc107', '#ff9800', '#ff5722'];
-        for (let i = 0; i < 100; i++) {
-            const confetti = document.createElement('div');
-            confetti.classList.add('confetti');
-            confetti.style.left = Math.random() * 100 + 'vw';
-            confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-            confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
-            confetti.style.opacity = Math.random();
-            document.body.appendChild(confetti);
-
-            setTimeout(() => {
-                confetti.remove();
-            }, 5000);
-        }
-    }
-</script>
 
 </body>
 </html>
